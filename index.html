@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalEase AI - Simplify Legal Documents</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__logo">
+                    <h2>LegalEase AI</h2>
+                </div>
+                <nav class="header__nav">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                    <a href="#about" class="nav-link">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Landing Page -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h1 class="hero__title">Legal documents shouldn't be a mystery</h1>
+                <p class="hero__subtitle">Transform complex legal jargon into clear, understandable guidance with Google Cloud AI</p>
+                
+                <div class="hero__stats">
+                    <div class="stat-card">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-text">of people don't understand their contracts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">300%</div>
+                        <div class="stat-text">harder to read than standard text</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$1,200+</div>
+                        <div class="stat-text">average savings by identifying unfavorable terms</div>
+                    </div>
+                </div>
+
+                <div class="hero__actions">
+                    <button class="btn btn--primary btn--lg" id="tryDemoBtn">Try Demo</button>
+                    <button class="btn btn--outline btn--lg" id="uploadDocBtn">Upload Document</button>
+                </div>
+
+                <div class="hero__trust">
+                    <div class="trust-badge">
+                        <span>🔒 Powered by Google Cloud AI</span>
+                        <span>✓ Secure & Private</span>
+                        <span>✓ Never Stored</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Interface -->
+    <section id="upload" class="upload-section hidden">
+        <div class="container">
+            <h2>Upload Your Legal Document</h2>
+            <div class="upload-area">
+                <div class="upload-dropzone" id="dropzone">
+                    <div class="upload-icon">📄</div>
+                    <h3>Drag & Drop Your Document</h3>
+                    <p>Support for PDF, Word documents, and images</p>
+                    <button class="btn btn--secondary" id="browseBtn">Browse Files</button>
+                    <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.png" hidden>
+                </div>
+                
+                <div class="upload-samples">
+                    <h4>Or try a sample document:</h4>
+                    <div class="sample-docs">
+                        <button class="sample-doc-btn" data-doc="rental">
+                            <span class="doc-icon">🏠</span>
+                            <span class="doc-name">Rental Agreement</span>
+                        </button>
+                        <button class="sample-doc-btn" data-doc="loan">
+                            <span class="doc-icon">💰</span>
+                            <span class="doc-name">Loan Contract</span>
+                        </button>
+                        <button class="sample-doc-btn" data-doc="terms">
+                            <span class="doc-icon">📋</span>
+                            <span class="doc-name">Terms of Service</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="privacy-note">
+                    <p>🔒 Your documents are processed securely and never stored permanently</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Screen -->
+    <section id="loading" class="loading-section hidden">
+        <div class="container">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <h3>Analyzing your document...</h3>
+                <div class="progress-steps">
+                    <div class="step active">
+                        <span class="step-icon">📄</span>
+                        <span>Reading Document</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">🧠</span>
+                        <span>AI Analysis</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">⚖️</span>
+                        <span>Risk Assessment</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-icon">✨</span>
+                        <span>Simplification</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <section id="dashboard" class="dashboard hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2 id="docTitle">Residential Lease Agreement Analysis</h2>
+                <div class="dashboard-nav">
+                    <button class="tab-btn active" data-tab="overview">Overview</button>
+                    <button class="tab-btn" data-tab="simplified">Simplified</button>
+                    <button class="tab-btn" data-tab="risks">Risk Analysis</button>
+                    <button class="tab-btn" data-tab="chat">Q&A</button>
+                    <button class="tab-btn" data-tab="summary">Summary</button>
+                </div>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="overview-grid">
+                    <div class="document-preview">
+                        <h3>Original Document</h3>
+                        <div class="doc-preview-content">
+                            <div class="doc-meta">
+                                <p><strong>Document Type:</strong> <span id="docType">Rental Agreement</span></p>
+                                <p><strong>Parties:</strong> Property Management Co. & You</p>
+                                <p><strong>Key Terms:</strong> $2,500/month, 12-month lease</p>
+                            </div>
+                            
+                            <div class="clause-preview" id="clausePreview">
+                                <h4>Interactive Clauses (click to analyze)</h4>
+                                <div class="clause-item" data-clause="rent_increase">
+                                    <span class="clause-risk high">High Risk</span>
+                                    <p>"Landlord may increase rent with thirty (30) days written notice..."</p>
+                                </div>
+                                <div class="clause-item" data-clause="repair_responsibility">
+                                    <span class="clause-risk high">High Risk</span>
+                                    <p>"Tenant shall be responsible for all repairs... exceeding $100..."</p>
+                                </div>
+                                <div class="clause-item" data-clause="entry_rights">
+                                    <span class="clause-risk medium">Medium Risk</span>
+                                    <p>"Lessor reserves the right to enter... with 24 hours notice..."</p>
+                                </div>
+                                <div class="clause-item" data-clause="guest_policy">
+                                    <span class="clause-risk medium">Medium Risk</span>
+                                    <p>"No person other than Tenant may occupy... more than 7 days..."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-panel">
+                        <div class="risk-score-card">
+                            <div class="risk-score">
+                                <div class="score-circle">
+                                    <span class="score-number">7</span>
+                                    <span class="score-total">/10</span>
+                                </div>
+                                <div class="score-label">
+                                    <h3>Risk Level</h3>
+                                    <p class="risk-high">Medium-High Risk</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="key-insights">
+                            <h3>Key Insights</h3>
+                            <div class="insight-list">
+                                <div class="insight-item red">
+                                    <span class="insight-icon">⚠️</span>
+                                    <span>Unlimited rent increase clause</span>
+                                </div>
+                                <div class="insight-item red">
+                                    <span class="insight-icon">💸</span>
+                                    <span>High repair responsibilities</span>
+                                </div>
+                                <div class="insight-item yellow">
+                                    <span class="insight-icon">🚪</span>
+                                    <span>Broad entry rights</span>
+                                </div>
+                                <div class="insight-item yellow">
+                                    <span class="insight-icon">👥</span>
+                                    <span>Restrictive guest policy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-actions">
+                            <h3>Recommended Actions</h3>
+                            <button class="action-btn">💬 Ask About Rent Increases</button>
+                            <button class="action-btn">🔧 Clarify Repair Terms</button>
+                            <button class="action-btn">📋 Download Summary</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simplified Tab -->
+            <div id="simplified" class="tab-content">
+                <div class="simplified-content">
+                    <div class="simplified-header">
+                        <h3>Plain English Translation</h3>
+                        <div class="legend">
+                            <span class="legend-item good">✓ Favorable</span>
+                            <span class="legend-item neutral">− Neutral</span>
+                            <span class="legend-item concerning">⚠ Concerning</span>
+                        </div>
+                    </div>
+                    
+                    <div class="simplified-clauses">
+                        <div class="simplified-clause concerning">
+                            <h4>Rent Increases</h4>
+                            <div class="clause-comparison">
+                                <div class="original-text">
+                                    <strong>Original:</strong> "Landlord may increase rent with thirty (30) days written notice to Tenant for any reason deemed appropriate by Landlord in their sole discretion."
+                                </div>
+                                <div class="simplified-text">
+                                    <strong>Plain English:</strong> Your landlord can raise your rent with only 30 days notice, for any reason they want.
+                                </div>
+                                <div class="explanation">
+                                    <strong>Why this matters:</strong> This gives the landlord unlimited power to increase rent. Most tenant-friendly leases limit increases to once per year or tie them to market rates.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="simplified-clause concerning">
+                            <h4>Repair Responsibilities</h4>
+                            <div class="clause-comparison">
+                                <div class="original-text">
+                                    <strong>Original:</strong> "Tenant shall be responsible for all repairs, maintenance, and replacement of any item within the demised premises exceeding One Hundred Dollars ($100) in cost."
+                                </div>
+                                <div class="simplified-text">
+                                    <strong>Plain English:</strong> You must pay for any repairs that cost more than $100, even if it's not your fault.
+                                </div>
+                                <div class="explanation">
+                                    <strong>Why this matters:</strong> This is unusual and unfair. Typically, landlords are responsible for major repairs unless damage is caused by tenant negligence.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="simplified-clause neutral">
+                            <h4>Entry Rights</h4>
+                            <div class="clause-comparison">
+                                <div class="original-text">
+                                    <strong>Original:</strong> "Lessor reserves the right to enter the demised premises at any reasonable time with twenty-four (24) hours prior written notice for inspection, repair, or showing to prospective tenants."
+                                </div>
+                                <div class="simplified-text">
+                                    <strong>Plain English:</strong> Your landlord can enter your home with 24 hours notice for inspections, repairs, or to show the property.
+                                </div>
+                                <div class="explanation">
+                                    <strong>Why this matters:</strong> While 24-hour notice is standard, the broad reasons for entry may exceed what's legally required in your area.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Analysis Tab -->
+            <div id="risks" class="tab-content">
+                <div class="risk-analysis">
+                    <h3>Detailed Risk Assessment</h3>
+                    
+                    <div class="risk-categories">
+                        <div class="risk-category">
+                            <div class="risk-header">
+                                <h4>Financial Risk</h4>
+                                <div class="risk-meter">
+                                    <div class="risk-bar">
+                                        <div class="risk-fill" style="width: 80%; background-color: var(--color-error);"></div>
+                                    </div>
+                                    <span class="risk-score">8/10 - High</span>
+                                </div>
+                            </div>
+                            <ul class="risk-issues">
+                                <li>Unlimited rent increases</li>
+                                <li>Excessive repair obligations</li>
+                                <li>High early termination fee (3 months rent)</li>
+                            </ul>
+                        </div>
+
+                        <div class="risk-category">
+                            <div class="risk-header">
+                                <h4>Privacy Risk</h4>
+                                <div class="risk-meter">
+                                    <div class="risk-bar">
+                                        <div class="risk-fill" style="width: 60%; background-color: var(--color-warning);"></div>
+                                    </div>
+                                    <span class="risk-score">6/10 - Medium</span>
+                                </div>
+                            </div>
+                            <ul class="risk-issues">
+                                <li>Broad entry rights</li>
+                                <li>Limited guest policy</li>
+                            </ul>
+                        </div>
+
+                        <div class="risk-category">
+                            <div class="risk-header">
+                                <h4>Flexibility Risk</h4>
+                                <div class="risk-meter">
+                                    <div class="risk-bar">
+                                        <div class="risk-fill" style="width: 80%; background-color: var(--color-error);"></div>
+                                    </div>
+                                    <span class="risk-score">8/10 - High</span>
+                                </div>
+                            </div>
+                            <ul class="risk-issues">
+                                <li>Rigid guest restrictions</li>
+                                <li>High penalty for early termination</li>
+                                <li>Limited tenant protections</li>
+                            </ul>
+                        </div>
+
+                        <div class="risk-category">
+                            <div class="risk-header">
+                                <h4>Legal Compliance</h4>
+                                <div class="risk-meter">
+                                    <div class="risk-bar">
+                                        <div class="risk-fill" style="width: 50%; background-color: var(--color-warning);"></div>
+                                    </div>
+                                    <span class="risk-score">5/10 - Medium</span>
+                                </div>
+                            </div>
+                            <ul class="risk-issues">
+                                <li>Some clauses may exceed local law limits</li>
+                                <li>Check tenant rights in your area</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="comparison-section">
+                        <h4>Comparison to Industry Standards</h4>
+                        <div class="comparison-grid">
+                            <div class="comparison-item">
+                                <span class="comparison-label">Early Termination Fee</span>
+                                <span class="comparison-yours">Your lease: 3 months</span>
+                                <span class="comparison-typical">Typical: 1-2 months</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Guest Policy</span>
+                                <span class="comparison-yours">Your lease: 7 days max</span>
+                                <span class="comparison-typical">Typical: 14-30 days</span>
+                            </div>
+                            <div class="comparison-item">
+                                <span class="comparison-label">Repair Threshold</span>
+                                <span class="comparison-yours">Your lease: $100+</span>
+                                <span class="comparison-typical">Typical: Landlord responsibility</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Tab -->
+            <div id="chat" class="tab-content">
+                <div class="chat-interface">
+                    <div class="chat-header">
+                        <h3>Ask Questions About Your Document</h3>
+                        <p>Get instant answers about any clause or term in plain English</p>
+                    </div>
+                    
+                    <div class="quick-questions">
+                        <h4>Common Questions:</h4>
+                        <div class="quick-question-buttons">
+                            <button class="quick-question-btn">What happens if I want to cancel?</button>
+                            <button class="quick-question-btn">Are there any hidden fees?</button>
+                            <button class="quick-question-btn">Can my rent be increased?</button>
+                            <button class="quick-question-btn">Who pays for repairs?</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message bot">
+                            <div class="message-content">
+                                <p>Hi! I've analyzed your rental agreement. Feel free to ask me any questions about the terms, your rights, or what specific clauses mean.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Ask a question about your document..." class="form-control">
+                        <button id="sendChatBtn" class="btn btn--primary">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Tab -->
+            <div id="summary" class="tab-content">
+                <div class="summary-report">
+                    <div class="summary-header">
+                        <h3>Executive Summary Report</h3>
+                        <div class="summary-actions">
+                            <button class="btn btn--outline" id="downloadPdfBtn">📄 Download PDF</button>
+                            <button class="btn btn--secondary" id="shareBtn">📤 Share with Lawyer</button>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-content">
+                        <div class="summary-section">
+                            <h4>Key Takeaways</h4>
+                            <ul>
+                                <li><strong>Overall Risk:</strong> Medium-High (7/10) - Several concerning clauses that favor the landlord</li>
+                                <li><strong>Main Concerns:</strong> Unlimited rent increases, high repair obligations, restrictive policies</li>
+                                <li><strong>Recommendation:</strong> Consider negotiating key terms before signing</li>
+                                <li><strong>Estimated Impact:</strong> Could cost $3,000+ annually in unexpected fees and repairs</li>
+                            </ul>
+                        </div>
+
+                        <div class="summary-section">
+                            <h4>Red Flags to Address</h4>
+                            <div class="red-flags-list">
+                                <div class="flag-item">
+                                    <span class="flag-severity high">Critical</span>
+                                    <span class="flag-text">Unlimited rent increase clause allows increases at any time for any reason</span>
+                                </div>
+                                <div class="flag-item">
+                                    <span class="flag-severity high">Critical</span>
+                                    <span class="flag-text">Tenant responsible for all repairs over $100 regardless of cause</span>
+                                </div>
+                                <div class="flag-item">
+                                    <span class="flag-severity medium">Important</span>
+                                    <span class="flag-text">7-day guest limit is more restrictive than typical leases</span>
+                                </div>
+                                <div class="flag-item">
+                                    <span class="flag-severity medium">Important</span>
+                                    <span class="flag-text">Early termination fee of 3 months rent is excessive</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h4>Positive Aspects</h4>
+                            <ul>
+                                <li>Clear payment terms and due dates specified</li>
+                                <li>Standard security deposit amount (2x monthly rent)</li>
+                                <li>Reasonable 24-hour notice period for entry</li>
+                                <li>Property maintenance standards are clearly defined</li>
+                            </ul>
+                        </div>
+
+                        <div class="summary-section">
+                            <h4>Negotiation Recommendations</h4>
+                            <ol>
+                                <li><strong>Rent Increases:</strong> Limit to once per year with maximum percentage increase</li>
+                                <li><strong>Repair Costs:</strong> Increase threshold to $500+ or limit to tenant-caused damage</li>
+                                <li><strong>Guest Policy:</strong> Extend to 14-21 days for visitors</li>
+                                <li><strong>Early Termination:</strong> Reduce fee to 1-2 months rent</li>
+                                <li><strong>Entry Rights:</strong> Specify legitimate reasons for landlord entry</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clause Detail Modal -->
+    <div id="clauseModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Clause Analysis</h3>
+                <button class="modal-close" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="clause-detail">
+                    <div class="risk-indicator">
+                        <span id="modalRiskLevel" class="risk-badge high">High Risk</span>
+                    </div>
+                    <div class="clause-text">
+                        <h4>Original Text:</h4>
+                        <p id="modalOriginal" class="original-clause"></p>
+                        
+                        <h4>Plain English:</h4>
+                        <p id="modalSimplified" class="simplified-clause"></p>
+                        
+                        <h4>Why This Matters:</h4>
+                        <p id="modalExplanation" class="explanation-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
